@@ -1,7 +1,6 @@
 import requests
-import json
 import pprint
-
+import pandas as pd
 
 allTicketCount_url = (
     "https://commuters-dataapi.chennaimetrorail.org/api/PassengerFlow/allTicketCount/1"
@@ -21,14 +20,50 @@ headers = {
 
 def scrape_ticketcount(url):
     response = requests.get(url, headers=headers)
-    data = response.content
-    data = data.decode("utf-8")
-    json_str = json.loads(data)
-    pprint.pp(json_str)
+    if response.status_code == 200:
+        data = response.json()
+        # pprint.pp(data)
+        ticketcount_df = pd.DataFrame([data])
+        print(ticketcount_df)
+
+    else:
+        print(f"Failed to fetch URL: {response.status_code}")
+
+
+def scrape_hourly_data(url):
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        # pprint.pp(data)
+        # Extract data for each series
+        series_data = {}
+        for series in data["series"]:
+            series_data[series["name"]] = series["data"]
+
+        # Create a DataFrame
+        df = pd.DataFrame(series_data, index=pd.to_datetime(data["categories"]))
+        df.index.name = "timestamp"
+        print(df.info())
+    else:
+        print(f"Failed to fetch URL: {response.status_code}")
+
+
+def scrape_station_data(url):
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        pprint.pp(data)
+        ticketcount_df = pd.DataFrame([data])
+        print(ticketcount_df)
+
+    else:
+        print(f"Failed to fetch URL: {response.status_code}")
 
 
 def main():
-    scrape_ticketcount(allTicketCount_url)
+    # scrape_ticketcount(allTicketCount_url)
+    scrape_hourly_data(hourlybaseddata_url)
+    # scrape_station_data(stationData_url)
 
 
 if __name__ == "__main__":
