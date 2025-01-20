@@ -1,7 +1,12 @@
 import requests
-import pandas as pd
 
-from modules.data_extraction import station_data_extraction
+from modules.data_extraction import (
+    station_data_extraction,
+    ticketcount_data_extraction,
+    hourly_data_extraction,
+)
+
+from modules.data_store import ticket_count_dataset
 
 allTicketCount_url = (
     "https://commuters-dataapi.chennaimetrorail.org/api/PassengerFlow/allTicketCount/1"
@@ -23,9 +28,8 @@ def scrape_ticketcount(url):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
-        # pprint.pp(data)
-        ticketcount_df = pd.DataFrame([data])
-        print(ticketcount_df)
+        ticketcount_df = ticketcount_data_extraction(data)
+        ticket_count_dataset(ticketcount_df)
 
     else:
         print(f"Failed to fetch URL: {response.status_code}")
@@ -35,18 +39,7 @@ def scrape_hourly_data(url):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
-        # pprint.pp(data)
-        # Extract data for each series
-        series_data = {}
-        for series in data["series"]:
-            series_data[series["name"]] = series["data"]
-
-        # Create a DataFrame
-        df = pd.DataFrame(series_data, index=pd.to_datetime(data["categories"]))
-        df.index.name = "timestamp"
-        print(df.info())
-    else:
-        print(f"Failed to fetch URL: {response.status_code}")
+        hourly_data_extraction(data)
 
 
 def scrape_station_data(url):
@@ -54,14 +47,15 @@ def scrape_station_data(url):
     if response.status_code == 200:
         data = response.json()
         formatted_data = station_data_extraction(data)
+        print(formatted_data)
 
     else:
         print(f"Failed to fetch URL: {response.status_code}")
 
 
 def main():
-    # scrape_ticketcount(allTicketCount_url)
-    # scrape_hourly_data(hourlybaseddata_url)
+    scrape_ticketcount(allTicketCount_url)
+    scrape_hourly_data(hourlybaseddata_url)
     scrape_station_data(stationData_url)
 
 

@@ -3,7 +3,33 @@ import pandas as pd
 import datetime
 import pytz
 
+# Get current date in IST
+ist = pytz.timezone("Asia/Kolkata")
+current_date = datetime.datetime.now(ist).date()
+previous_date = current_date - datetime.timedelta(days=1)
 
+
+# For ticket count dataset
+def ticketcount_data_extraction(data):
+    ticketcount_df = pd.DataFrame([data])
+    ticketcount_df.insert(0, "Date", previous_date)
+    print(ticketcount_df)
+    return ticketcount_df
+
+
+# For hourly data dataset
+def hourly_data_extraction(data):
+    series_data = {}
+    for series in data["series"]:
+        series_data[series["name"]] = series["data"]
+    # Create a DataFrame
+    hourly_df = pd.DataFrame(series_data, index=pd.to_datetime(data["categories"]))
+    hourly_df.index.name = "timestamp"
+    print(hourly_df)
+    return hourly_df
+
+
+# For station usage dataset
 def station_data_extraction(data):
     def process_line_data(line_data):
         payment_data = {}
@@ -13,12 +39,8 @@ def station_data_extraction(data):
         station_df = pd.DataFrame(payment_data, index=line_data["categories"])
         station_df.index.name = "Station"
 
-        # Get current date in IST
-        ist = pytz.timezone("Asia/Kolkata")
-        current_date = datetime.datetime.now(ist).date()
-
         # Add the date column
-        station_df.insert(0, "Date", current_date)
+        station_df.insert(0, "Date", previous_date)
         station_df.insert(1, "Line", line_data["line"])
         return station_df
 
