@@ -1,6 +1,7 @@
 import requests
-import pprint
 import pandas as pd
+
+from modules.data_extraction import station_data_extraction
 
 allTicketCount_url = (
     "https://commuters-dataapi.chennaimetrorail.org/api/PassengerFlow/allTicketCount/1"
@@ -52,9 +53,7 @@ def scrape_station_data(url):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
-        pprint.pp(data)
-        ticketcount_df = pd.DataFrame([data])
-        print(ticketcount_df)
+        formatted_data = station_data_extraction(data)
 
     else:
         print(f"Failed to fetch URL: {response.status_code}")
@@ -62,8 +61,8 @@ def scrape_station_data(url):
 
 def main():
     # scrape_ticketcount(allTicketCount_url)
-    scrape_hourly_data(hourlybaseddata_url)
-    # scrape_station_data(stationData_url)
+    # scrape_hourly_data(hourlybaseddata_url)
+    scrape_station_data(stationData_url)
 
 
 if __name__ == "__main__":
