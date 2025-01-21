@@ -6,7 +6,7 @@ from modules.data_extraction import (
     hourly_data_extraction,
 )
 
-from modules.data_store import ticket_count_dataset
+from modules.data_store import ticket_count_dataset, hourly_dataset
 
 allTicketCount_url = (
     "https://commuters-dataapi.chennaimetrorail.org/api/PassengerFlow/allTicketCount/1"
@@ -39,7 +39,8 @@ def scrape_hourly_data(url):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
-        hourly_data_extraction(data)
+        hourly_df = hourly_data_extraction(data)
+        hourly_dataset(hourly_df)
 
 
 def scrape_station_data(url):
@@ -56,7 +57,7 @@ def scrape_station_data(url):
 def main():
     scrape_ticketcount(allTicketCount_url)
     scrape_hourly_data(hourlybaseddata_url)
-    scrape_station_data(stationData_url)
+    # scrape_station_data(stationData_url)
 
 
 if __name__ == "__main__":

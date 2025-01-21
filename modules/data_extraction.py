@@ -13,7 +13,6 @@ previous_date = current_date - datetime.timedelta(days=1)
 def ticketcount_data_extraction(data):
     ticketcount_df = pd.DataFrame([data])
     ticketcount_df.insert(0, "Date", previous_date)
-    print(ticketcount_df)
     return ticketcount_df
 
 
@@ -22,9 +21,10 @@ def hourly_data_extraction(data):
     series_data = {}
     for series in data["series"]:
         series_data[series["name"]] = series["data"]
+
     # Create a DataFrame
-    hourly_df = pd.DataFrame(series_data, index=pd.to_datetime(data["categories"]))
-    hourly_df.index.name = "timestamp"
+    hourly_df = pd.DataFrame(series_data)
+    hourly_df.insert(0, "date_and_time", pd.to_datetime(data["categories"]))
     print(hourly_df)
     return hourly_df
 
@@ -36,8 +36,8 @@ def station_data_extraction(data):
         for payment_type in line_data["series"]:
             payment_data[payment_type["name"]] = payment_type["data"]
 
-        station_df = pd.DataFrame(payment_data, index=line_data["categories"])
-        station_df.index.name = "Station"
+        station_df = pd.DataFrame(payment_data)
+        station_df.insert(0, "Station", line_data["categories"])
 
         # Add the date column
         station_df.insert(0, "Date", previous_date)
