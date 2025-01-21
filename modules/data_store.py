@@ -29,6 +29,18 @@ def hourly_dataset(ticketcount_df: pd.DataFrame):
     deduplication(file_path)
 
 
+def station_dataset(line, line_df):
+    file_path = f"data/line_{line}_data.csv"
+    try:
+        current_data = pd.read_csv(file_path)
+    except FileNotFoundError:
+        current_data = pd.DataFrame(columns=line_df.columns)  # Initialize with columns
+
+    combined_df = pd.concat([current_data, line_df], ignore_index=True)
+    combined_df.to_csv(file_path, index=False)
+    deduplication(file_path)
+
+
 def deduplication(file_path):
     current_data = pd.read_csv(file_path)
     current_data.drop_duplicates(inplace=True)
