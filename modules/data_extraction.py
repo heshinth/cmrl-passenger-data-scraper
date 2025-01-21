@@ -18,14 +18,13 @@ def ticketcount_data_extraction(data):
 
 # For hourly data dataset
 def hourly_data_extraction(data):
-    series_data = {}
-    for series in data["series"]:
-        series_data[series["name"]] = series["data"]
+    payment_data = {}
+    for payment_type in data["series"]:
+        payment_data[payment_type["name"]] = payment_type["data"]
 
     # Create a DataFrame
-    hourly_df = pd.DataFrame(series_data)
+    hourly_df = pd.DataFrame(payment_data)
     hourly_df.insert(0, "date_and_time", pd.to_datetime(data["categories"]))
-    print(hourly_df)
     return hourly_df
 
 
