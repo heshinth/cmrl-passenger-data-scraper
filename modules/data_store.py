@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def ticket_count_dataset(ticketcount_df: pd.DataFrame):
-    file_path = "data/ticketcount.csv"
+    file_path = "data/passenger_ticket_count.csv"
     try:
         current_data = pd.read_csv(file_path)
     except FileNotFoundError:
@@ -16,7 +16,7 @@ def ticket_count_dataset(ticketcount_df: pd.DataFrame):
 
 
 def hourly_dataset(ticketcount_df: pd.DataFrame):
-    file_path = "data/hourly_data.csv"
+    file_path = "data/passenger_flow_hourly.csv"
     try:
         current_data = pd.read_csv(file_path)
     except FileNotFoundError:
@@ -30,7 +30,7 @@ def hourly_dataset(ticketcount_df: pd.DataFrame):
 
 
 def station_dataset(line, line_df):
-    file_path = f"data/line_{line}_data.csv"
+    file_path = f"data/passenger_flow_line_{line}.csv"
     try:
         current_data = pd.read_csv(file_path)
     except FileNotFoundError:
