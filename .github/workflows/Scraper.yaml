@@ -4,6 +4,9 @@ on:
         - cron: "40 18 * * *"
     workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   Scrape-cmrl-api:
     runs-on: ubuntu-latest
