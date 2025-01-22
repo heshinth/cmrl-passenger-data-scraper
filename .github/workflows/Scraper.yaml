@@ -1,7 +1,7 @@
 name: Scraping CMRL site
 on:
     schedule:
-        - cron: "10 18 * * *"
+        - cron: "40 18 * * *"
     workflow_dispatch:
 
 jobs:
@@ -26,3 +26,17 @@ jobs:
 
       - name: "Run main.py"
         run: uv run main.py
+        
+      - name: Initiate Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+    
+      - name: Commit changes
+        run: |
+          export TZ=Asia/Kolkata
+          CURRENT_DATE=$(date '+%d-%m-%Y')
+          git add .
+          git commit -m "Update scraped data on $CURRENT_DATE [skip ci]"
+          git push origin
+
