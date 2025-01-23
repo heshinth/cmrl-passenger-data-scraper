@@ -48,16 +48,20 @@ jobs:
         run: |
           git add .
           git commit -m "Update scraped data on $CURRENT_DATE [skip ci]"
-          git tag -a "CURRENT_DATE" -m "Updated data from $CURRENT_DATE"
+          git tag -a "v$CURRENT_DATE" -m "Updated data from $CURRENT_DATE"
           git push origin
           git push origin --tags
 
       - name: Create GitHub Release using softprops/action-gh-release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "${{steps.init-variable.outputs.CURRENT_DATE}}" # Use the tag we created
-          name: "Data Release ${{steps.init-variable.outputs.CURRENT_DATE}}" # Release title
-          body: "Daily release of scraped CSV data for ${{steps.init-variable.outputs.CURRENT_DATE}}." # Release description
+          tag_name: "v${{steps.init-variable.outputs.CURRENT_DATE}}" # Use the tag we created
+          name: "Scraped Data for ${{steps.init-variable.outputs.CURRENT_DATE}}" # Release title
+          body: |
+            ### Automated daily data release.
+
+            This is an automatically generated daily release of scraped CSV data for ${{steps.init-variable.outputs.CURRENT_DATE}}.
+          # Release description
           files: data/* # Specify CSV files in the data folder as release assets
           draft: false
           prerelease: false
