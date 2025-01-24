@@ -58,6 +58,13 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 For any inquiries or issues, please open an issue on the [GitHub repository](https://github.com/heshinth/cmrl-passenger-data-scraper/issues).
 
+## Disclaimer
+
+- This project scrapes data directly from the CMRL's passenger flow portal
+- The data is provided "**as is**" without any guarantees of accuracy or completeness
+- This is an **unofficial** tool and not affiliated with CMRL
+- The scraping process may be affected by changes to CMRL's website structure
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
