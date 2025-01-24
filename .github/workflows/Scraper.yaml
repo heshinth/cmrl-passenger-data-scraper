@@ -62,6 +62,6 @@ jobs:
 
             This is an automatically generated daily release of scraped CSV data for ${{steps.init-variable.outputs.CURRENT_DATE}}.
           # Release description
-          files: data/* # Specify CSV files in the data folder as release assets
+          files: data/*.csv # Specify CSV files in the data folder as release assets
           draft: false
           prerelease: false

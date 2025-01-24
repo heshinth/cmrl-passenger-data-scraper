@@ -22,6 +22,7 @@ This project scrapes passenger data from [CMRL's Passenger Flow Portal](https://
   - `passenger_flow_line_01.csv`: Line 1 station-wise data
   - `passenger_flow_line_02.csv`: Line 2 station-wise data
   - `passenger_ticket_count.csv`: Daily ticket type statistics
+- For more details check [here](data/README.md)
 
 ## Setup
 
