@@ -1,6 +1,6 @@
 # CMRL Passenger Flow Data Scraper
 
-![GitHub License](https://img.shields.io/github/license/heshinth/cmrl-passenger-data-scraper)
+![GitHub License](https://img.shields.io/github/license/heshinth/cmrl-passenger-data-scraper?cacheSeconds=30)
 ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
 
 A Python-based scraper that automatically collects daily passenger flow data from Chennai Metro Rail Limited (CMRL).
