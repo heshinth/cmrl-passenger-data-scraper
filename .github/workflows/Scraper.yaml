@@ -48,7 +48,7 @@ jobs:
         run: |
           git add .
           git commit -m "Update scraped data on $CURRENT_DATE [skip ci]"
-          git tag -a "v$CURRENT_DATE" -m "Updated data from $CURRENT_DATE"
+          git tag -a "v${{steps.init-variable.outputs.CURRENT_DATE}}" -m "Updated data from ${{steps.init-variable.outputs.CURRENT_DATE}}"
           git push origin
           git push origin --tags
 
