@@ -19,6 +19,7 @@ def hourly_dataset(ticketcount_df: pd.DataFrame):
     file_path = "data/passenger_flow_hourly.csv"
     try:
         current_data = pd.read_csv(file_path)
+        current_data = current_data.drop_duplicates(['date_and_time'])
     except FileNotFoundError:
         current_data = pd.DataFrame(
             columns=ticketcount_df.columns
