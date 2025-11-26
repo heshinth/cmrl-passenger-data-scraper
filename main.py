@@ -1,4 +1,5 @@
-import requests
+import asyncio
+import httpx
 from modules.data_extraction import (
     station_data_extraction,
     ticketcount_data_extraction,
@@ -25,9 +26,9 @@ headers = {
 }
 
 
-def scrape_ticketcount(url):
+async def scrape_ticketcount(client, url):
     logger.info("Starting ticket count data scraping")
-    response = requests.get(url, headers=headers)
+    response = await client.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
         ticketcount_df = ticketcount_data_extraction(data)
@@ -37,9 +38,9 @@ def scrape_ticketcount(url):
         logger.error(f"Failed to fetch ticket count data: {response.status_code}")
 
 
-def scrape_hourly_data(url):
+async def scrape_hourly_data(client, url):
     logger.info("Starting hourly data scraping")
-    response = requests.get(url, headers=headers)
+    response = await client.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
         hourly_df = hourly_data_extraction(data)
@@ -49,9 +50,9 @@ def scrape_hourly_data(url):
         logger.error(f"Failed to fetch hourly data: {response.status_code}")
 
 
-def scrape_station_data(url):
+async def scrape_station_data(client, url):
     logger.info("Starting station data scraping")
-    response = requests.get(url, headers=headers)
+    response = await client.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
         formatted_data = station_data_extraction(data)
@@ -63,16 +64,19 @@ def scrape_station_data(url):
         logger.error(f"Failed to fetch station data: {response.status_code}")
 
 
-def main():
+async def main():
     logger.info("Starting CMRL data scraping process")
-    try:
-        scrape_ticketcount(allTicketCount_url)
-        scrape_hourly_data(hourlybaseddata_url)
-        scrape_station_data(stationData_url)
-        logger.info("Completed CMRL data scraping process")
-    except Exception as e:
-        logger.error(f"An error occurred during scraping: {str(e)}", exc_info=True)
+    async with httpx.AsyncClient() as client:
+        try:
+            await asyncio.gather(
+                scrape_ticketcount(client, allTicketCount_url),
+                scrape_hourly_data(client, hourlybaseddata_url),
+                scrape_station_data(client, stationData_url),
+            )
+            logger.info("Completed CMRL data scraping process")
+        except Exception as e:
+            logger.error(f"An error occurred during scraping: {str(e)}", exc_info=True)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
