@@ -7,5 +7,4 @@ requires-python = ">=3.12"
 dependencies = [
     "httpx[cli]>=0.28.1",
     "pandas>=2.2.3",
-    "requests>=2.32.3",
 ]
