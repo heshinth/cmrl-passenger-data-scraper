@@ -28,10 +28,10 @@ This project scrapes passenger data from [CMRL's Passenger Flow Portal](https://
 
 1. Clone the repository:
 
-```bash
-git clone https://github.com/heshinth/cmrl-passenger-data-scraper.git
-cd cmrl-passenger-data-scraper
-```
+   ```bash
+   git clone https://github.com/heshinth/cmrl-passenger-data-scraper.git
+   cd cmrl-passenger-data-scraper
+   ```
 
 2. Install dependencies using `uv`:
 
@@ -41,7 +41,7 @@ cd cmrl-passenger-data-scraper
 
 3. Run the scraper manually:
    ```
-   python main.py
+   uv run main.py
    ```
 
 ## Todo
