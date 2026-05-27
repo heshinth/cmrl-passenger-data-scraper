@@ -44,12 +44,6 @@ This project scrapes passenger data from [CMRL's Passenger Flow Portal](https://
    uv run main.py
    ```
 
-## Todo
-
-- [ ] Add JSON schema validation for API response changes
-- [ ] Add data validation checks
-- [ ] Add API documentation
-- [ ] Implement error notification system
 
 ## Contributing
 
@@ -65,8 +59,6 @@ For any inquiries or issues, please open an issue on the [GitHub repository](htt
 - The data is provided "**as is**" without any guarantees of accuracy or completeness
 - This is an **unofficial** tool and not affiliated with CMRL
 - The scraping process may be affected by changes to CMRL's website structure
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ---
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
