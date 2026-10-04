@@ -23,14 +23,14 @@ Contains hourly passenger counts across the entire metro system.
   - `Mobile QR`
   - Various QR payment methods (WhatsApp, Paytm, PhonePe, etc.)
 
-### 2. passenger_flow_line_01.csv & passenger_flow_line_02.csv
+### 2. passenger_flow_line_<line>.csv
 
-Station-wise passenger flow data for Line 1 and Line 2 respectively.
+Station-wise passenger flow data for each metro line (e.g. Line 01, Line 02, and Phase 2 lines).
 
 **Columns:**
 
 - `Date`: Date of record
-- `Line`: Metro line number (1 or 2)
+- `Line`: Metro line number
 - `Station`: Station name
 - `Total`: Total passenger count at station
 - Same payment method breakdowns as hourly data

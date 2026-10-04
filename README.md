@@ -10,7 +10,7 @@ A Python-based scraper that automatically collects daily passenger flow data fro
 This project scrapes passenger data from [CMRL's Passenger Flow Portal](https://commuters-data.chennaimetrorail.org/passengerflow) and stores it in CSV format. The data includes:
 
 - Hourly passenger counts
-- Station-wise passenger flow for Line 1 and Line 2
+- Station-wise passenger flow across metro lines
 - Ticket type distribution statistics
 
 ## Data Collection
@@ -19,8 +19,7 @@ This project scrapes passenger data from [CMRL's Passenger Flow Portal](https://
 - Historical data available from January 20, 2025
 - Data is stored in the `data/` directory in CSV format:
   - `passenger_flow_hourly.csv`: Hourly passenger counts
-  - `passenger_flow_line_01.csv`: Line 1 station-wise data
-  - `passenger_flow_line_02.csv`: Line 2 station-wise data
+  - `passenger_flow_line_<line>.csv`: Station-wise data per line (e.g. `line_01`, `line_02`)
   - `passenger_ticket_count.csv`: Daily ticket type statistics
 - For more details check [here](data/README.md)
 

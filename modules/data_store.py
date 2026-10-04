@@ -31,7 +31,8 @@ def hourly_dataset(hourly_df: pd.DataFrame):
 
 
 def station_dataset(line, line_df):
-    file_path = f"data/passenger_flow_line_{line}.csv"
+    line_clean = f"{int(line):02d}" if str(line).isdigit() else str(line)
+    file_path = f"data/passenger_flow_line_{line_clean}.csv"
     try:
         current_data = pd.read_csv(file_path)
     except FileNotFoundError:
