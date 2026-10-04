@@ -66,7 +66,7 @@ async def scrape_station_data(client, url):
 
 async def main():
     logger.info("Starting CMRL data scraping process")
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=60.0) as client:
         try:
             await asyncio.gather(
                 scrape_ticketcount(client, allTicketCount_url),

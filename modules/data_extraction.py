@@ -1,12 +1,11 @@
 import pandas as pd
-
-import datetime
-import pytz
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 # Get current date in IST
-ist = pytz.timezone("Asia/Kolkata")
-current_date = datetime.datetime.now(ist).date()
-previous_date = current_date - datetime.timedelta(days=1)
+ist = ZoneInfo("Asia/Kolkata")
+current_date = datetime.now(ist).date()
+previous_date = str(current_date - timedelta(days=1))
 
 
 # For ticket count dataset
