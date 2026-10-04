@@ -8,3 +8,8 @@ dependencies = [
     "httpx[cli]>=0.28.1",
     "pandas>=2.2.3",
 ]
+
+[dependency-groups]
+dev = [
+    "pip>=26.2.1",
+]
